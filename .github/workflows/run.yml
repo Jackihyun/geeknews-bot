@@ -1,0 +1,27 @@
+name: GeekNews Bot Task
+
+on:
+  schedule:
+    # 매시간 정각마다 실행 (UTC 기준이라 한국 시간으로는 매시 9분쯤 실행될 수 있음)
+    - cron: '0 * * * *'
+  workflow_dispatch: # 수동으로 실행해볼 수 있는 버튼 생성
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Execute Python script
+        env:
+          MM_WEBHOOK_URL: ${{ secrets.MM_WEBHOOK_URL }}
+        run: python bot.py
