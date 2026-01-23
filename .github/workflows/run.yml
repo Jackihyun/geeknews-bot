@@ -2,8 +2,8 @@ name: GeekNews Bot Task
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # 30분마다 실행
-  workflow_dispatch: # 수동 실행 버튼 활성화
+    - cron: '0,30 * * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
